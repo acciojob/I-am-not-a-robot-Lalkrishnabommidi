@@ -1,20 +1,10 @@
-//your code here
 const heading = document.getElementById("h");
 const para = document.getElementById("para");
 const reset = document.getElementById("reset");
 const verify = document.getElementById("verify");
 const images = document.querySelectorAll("img");
 
-const imageNames = [
-  "img1",
-  "img2",
-  "img3",
-  "img4",
-  "img5"
-];
-
 let selectedImages = [];
-let duplicateImage;
 
 heading.textContent =
   "Please click on the identical tiles to verify that you are not a robot.";
@@ -32,15 +22,22 @@ function shuffle(array) {
 }
 
 function setupImages() {
-  duplicateImage =
-    imageNames[Math.floor(Math.random() * imageNames.length)];
+  const originalSources = Array.from(images).map((image) => image.src);
 
-  const imageList = [...imageNames, duplicateImage];
+  const duplicateIndex = Math.floor(
+    Math.random() * originalSources.length
+  );
+
+  const imageList = [
+    ...originalSources,
+    originalSources[duplicateIndex]
+  ];
+
   shuffle(imageList);
 
   images.forEach((image, index) => {
+    image.src = imageList[index];
     image.dataset.name = imageList[index];
-    image.src = `images/${imageList[index]}.jpg`;
   });
 }
 
