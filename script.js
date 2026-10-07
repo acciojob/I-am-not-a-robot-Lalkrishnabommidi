@@ -2,7 +2,7 @@ const heading = document.getElementById("h");
 const para = document.getElementById("para");
 const reset = document.getElementById("reset");
 const verify = document.getElementById("verify");
-const images = document.querySelectorAll("img");
+const images = document.querySelectorAll(".tile");
 
 let selectedImages = [];
 
@@ -18,19 +18,18 @@ function shuffle(array) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+
   return array;
 }
 
 function setupImages() {
-  const originalSources = Array.from(images).map((image) => image.src);
+  const sources = Array.from(images).map((image) => image.src);
 
-  const duplicateIndex = Math.floor(
-    Math.random() * originalSources.length
-  );
+  const duplicateIndex = Math.floor(Math.random() * 5);
 
   const imageList = [
-    ...originalSources,
-    originalSources[duplicateIndex]
+    ...sources.slice(0, 5),
+    sources[duplicateIndex]
   ];
 
   shuffle(imageList);
